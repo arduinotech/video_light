@@ -12,7 +12,7 @@
 CRGB leds[LED_COUNT];
 Display *display;
 Matrix *matrix;
-Encoder enc(ENCODER_S1_PIN, ENCODER_S2_PIN, ENCODER_KEY_PIN);
+Encoder enc(ENCODER_S2_PIN, ENCODER_S1_PIN, ENCODER_KEY_PIN, TYPE2);
 
 void setup()
 {
@@ -39,6 +39,9 @@ void setup()
 void loop()
 {
     uint64_t now = millis();
+    static uint32_t counterRight = 0;
+    static uint32_t counterLeft = 0;
+    static uint32_t counterPress = 0;
 
     static uint64_t lastClickTime = 0;
 
@@ -46,17 +49,23 @@ void loop()
     enc.tick();
 
     if (enc.isRight()) {
-        display->showText("ENC RIGHT", 0);
+        counterLeft = 0;
+        counterPress = 0;
+        display->showText("ENC RIGHT: " + String(counterRight++), 0);
         display->shortTimeBacklight();
     }
 
     if (enc.isLeft()) {
-        display->showText("ENC LEFT", 0);
+        counterRight = 0;
+        counterPress = 0;
+        display->showText("ENC LEFT: " + String(counterLeft++), 0);
         display->shortTimeBacklight();
     }
 
     if (enc.isPress()) {
-        display->showText("ENC PRESS", 0);
+        counterLeft = 0;
+        counterRight = 0;
+        display->showText("ENC PRESS: " + String(counterPress++), 0);
         display->shortTimeBacklight();
     }
 
