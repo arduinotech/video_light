@@ -8,7 +8,7 @@ Matrix::Matrix(uint16_t ledsCount)
     _ledsCount = ledsCount;
     _leds = new CRGB[ledsCount];
 
-    FastLED.addLeds<WS2812B, pin, RGB>(_leds, _ledsCount);
+    FastLED.addLeds<WS2812B, pin, GRB>(_leds, _ledsCount);
     setAllLedsColor(CRGB::Black);
 }
 
@@ -32,4 +32,10 @@ void Matrix::setAllLedsTemperature(uint16_t kelvins)
 {
     // todo: Convert kelvins to rgb
     // todo: call setAllLedsRGB()
+}
+
+void Matrix::setBrightness(uint8_t scale)
+{
+    FastLED.setBrightness(scale);
+    FastLED.show();
 }
