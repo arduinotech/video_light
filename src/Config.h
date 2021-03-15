@@ -6,8 +6,8 @@
 // =========================================
 
 // Number of leds
-// #define LED_COUNT 256
-#define LED_COUNT 3
+#define LED_COUNT 256
+// #define LED_COUNT 3
 
 // LED Strip pin
 #define LED_PIN 5
@@ -26,8 +26,8 @@
 #define LCD_COLS 16
 #define LCD_ROWS 2
 
-//#define SHORT_BACKLIGHT_MILLIS 5000
-#define SHORT_BACKLIGHT_MILLIS 600000
+#define SHORT_BACKLIGHT_MILLIS 5000
+// #define SHORT_BACKLIGHT_MILLIS 600000
 
 #define INIT_BRIGHT_PROC 50
 #define INIT_KELVIN 5500
