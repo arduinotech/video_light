@@ -415,7 +415,9 @@ void loop()
     display->tick();
     enc.tick();
 
-    display->showText(String(brightProc) + String("%") + String("     ") + ((kelvin == 0) ? String("") : (String(kelvin) + String("K"))), 0);
+    display->showLeftText(String(brightProc) + String("%"), 0);
+    display->showRightText((kelvin == 0) ? String("") : (String(kelvin) + String("K")), 0);
+
     display->showText(
         intToStringWithZeros(colorR) + String(" ") +
         intToStringWithZeros(colorG) + String(" ") +

@@ -9,33 +9,27 @@ Matrix::Matrix(uint16_t ledsCount)
     _leds = new CRGB[ledsCount];
 
     FastLED.addLeds<WS2812B, pin, GRB>(_leds, _ledsCount);
-    setAllLedsColor(CRGB::Black);
-}
-
-void Matrix::setAllLedsColor(uint32_t color)
-{
-    for (uint16_t i = 0; i < _ledsCount; i++) {
-        _leds[i] = color;
-    }
-    FastLED.show();
+    _colorR = 0;
+    _colorG = 0;
+    _colorB = 0;
+    setAllLedsRGB(_colorR, _colorG, _colorB);
 }
 
 void Matrix::setAllLedsRGB(uint8_t colorR, uint8_t colorG, uint8_t colorB)
 {
-    for (uint16_t i = 0; i < _ledsCount; i++) {
-        _leds[i].setRGB(colorR, colorG, colorB);
+    if ((colorR != _colorR) || (colorG != _colorG) || (colorB != _colorB)) {
+        _colorR = colorR;
+        _colorG = colorG;
+        _colorB = colorB;
+        FastLED.showColor(CRGB(_colorR, _colorG, _colorB));
     }
-    FastLED.show();
-}
-
-void Matrix::setAllLedsTemperature(uint16_t kelvins)
-{
-    // todo: Convert kelvins to rgb
-    // todo: call setAllLedsRGB()
 }
 
 void Matrix::setBrightness(uint8_t scale)
 {
-    FastLED.setBrightness(scale);
-    FastLED.show();
+    if (scale != _scale) {
+        _scale = scale;
+        FastLED.setBrightness(_scale);
+        FastLED.showColor(CRGB(_colorR, _colorG, _colorB));
+    }
 }
